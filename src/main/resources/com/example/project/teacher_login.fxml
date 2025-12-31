@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="rootBox"
+      alignment="CENTER"
+      fillWidth="false"
+      prefHeight="250"
+      prefWidth="400"
+      spacing="12.0"
+      style="-fx-background-color: #f5f5f5;"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.project.TeacherLoginController">
+
+    <padding>
+        <Insets bottom="20"
+                left="20"
+                right="20"
+                top="20" />
+    </padding>
+
+    <Label prefHeight="31.0"
+           prefWidth="133.0"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"
+           text="Teacher Login" />
+
+    <TextField fx:id="nameField"
+               prefHeight="30.0"
+               prefWidth="173.0"
+               promptText="Enter teacher name" />
+
+    <Button onAction="#onLoginClicked"
+            prefHeight="26.0"
+            prefWidth="122.0"
+            text="Log in" />
+
+</VBox>
