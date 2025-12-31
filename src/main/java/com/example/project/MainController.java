@@ -29,7 +29,7 @@ public class MainController {
             Scene scene= new Scene(loader.load());
             Stage stage = MainApp.getPrimaryStage();
             stage.setScene(scene);
-            stage.setTitle("Student Login");
+            stage.setTitle("Student Dashboard");
             stage.centerOnScreen();
         }
         catch (Exception e) {e.printStackTrace();}
