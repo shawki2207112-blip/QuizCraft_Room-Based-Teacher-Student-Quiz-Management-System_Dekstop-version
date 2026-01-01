@@ -41,6 +41,9 @@ public class CreateQuestionController {
     private String imagePath = "";
     private final QuestionDatabase db = new QuestionDatabase();
 
+    private Runnable onSavedCallback;
+    private QuestionModel editingQuestion;
+
     @FXML
     private void initialize() {
         addOptionField();
@@ -50,6 +53,45 @@ public class CreateQuestionController {
 
     public void setRoomId(String roomId) {
         this.roomId = roomId;
+    }
+
+    public void setOnSavedCallback(Runnable callback) {
+        this.onSavedCallback = callback;
+    }
+
+    public void setQuestionToEdit(QuestionModel question, Runnable callback) {
+        this.editingQuestion = question;
+        this.onSavedCallback = callback;
+
+        questionArea.setText(question.getQuestion());
+        imagePath = question.getImagePath();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File file = new File(imagePath);
+            imagePathLabel.setText(file.getName());
+            try {
+                String uri = file.toURI().toURL().toString();
+                previewImageView.setImage(new Image(uri, true));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        optionsBox.getChildren().clear();
+        optionFields.clear();
+        for (String opt : question.getOptions()) {
+            TextField tf = new TextField(opt);
+            optionFields.add(tf);
+            optionsBox.getChildren().add(tf);
+        }
+        if (optionFields.size() < 2) {
+            addOptionField();
+        }
+        updateCorrectIndexCombo();
+
+        int index = question.getOptions().indexOf(question.getCorrectAnswer());
+        if (index >= 0) {
+            correctIndexCombo.setValue(index + 1);
+        }
     }
 
     @FXML
@@ -107,24 +149,24 @@ public class CreateQuestionController {
 
         Integer correctIndex = correctIndexCombo.getValue();
 
-        if (roomId == null || roomId.isEmpty()) {
-            return;
-        }
-        if (questionText.isEmpty()) {
-            return;
-        }
-        if (options.size() < 2) {
-            return;
-        }
+        if (roomId == null || roomId.isEmpty()) return;
+        if (questionText.isEmpty()) return;
+        if (options.size() < 2) return;
         if (correctIndex == null ||
                 correctIndex < 1 ||
-                correctIndex > options.size()) {
-            return;
-        }
+                correctIndex > options.size()) return;
 
         String correctAnswer = options.get(correctIndex - 1);
 
-        db.insertQuestion(roomId, questionText, imagePath, options, correctAnswer);
+        if (editingQuestion == null) {
+            db.insertQuestion(roomId, questionText, imagePath, options, correctAnswer);
+        } else {
+            db.updateQuestion(editingQuestion.getId(), questionText, imagePath, options, correctAnswer);
+        }
+
+        if (onSavedCallback != null) {
+            onSavedCallback.run();
+        }
 
         Stage stage = (Stage) questionArea.getScene().getWindow();
         stage.close();
