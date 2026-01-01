@@ -78,4 +78,37 @@ public class QuestionDatabase {
         }
         return list;
     }
+
+    public void updateQuestion(int id,
+                               String question,
+                               String imagePath,
+                               List<String> options,
+                               String correctAnswer) {
+        String sql = "UPDATE questions SET question = ?, imagePath = ?, options = ?, correctAnswer = ? " +
+                "WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, question);
+            ps.setString(2, imagePath);
+            ps.setString(3, String.join("|", options));
+            ps.setString(4, correctAnswer);
+            ps.setInt(5, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteQuestion(int id) {
+        String sql = "DELETE FROM questions WHERE id = ?";
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
