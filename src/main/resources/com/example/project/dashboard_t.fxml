@@ -44,9 +44,9 @@
 
         <HBox spacing="8.0">
             <Button onAction="#onCreateQuestionClicked" prefWidth="100" text="Create" />
-            <Button  prefWidth="100" text="Update" />
-            <Button  prefWidth="100" text="Delete" />
-            <Button  prefWidth="100" text="Preview" />
+            <Button onAction="#onUpdateQuestionClicked" prefWidth="100" text="Update" />
+            <Button onAction="#onDeleteQuestionClicked" prefWidth="100" text="Delete" />
+            <Button onAction="#onPreviewQuestionClicked" prefWidth="100" text="Preview" />
         </HBox>
     </VBox>
 
@@ -58,7 +58,8 @@
 
         <Button prefHeight="26.0"
                 prefWidth="159.0"
-                text="View all results" />
+                text="View all results"
+                onAction="#onViewResultsClicked"/>
     </VBox>
 
 </VBox>
