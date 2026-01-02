@@ -100,4 +100,30 @@ public class DashboardTController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void onViewResultsClicked(ActionEvent event) {
+        String roomId = getRoomIdFromUI();
+        if (roomId.isEmpty()) return;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("result_list.fxml")
+            );
+            Scene scene = new Scene(loader.load());
+
+            ResultListController controller = loader.getController();
+            controller.setRoomId(roomId);
+
+            Stage stage = new Stage();
+            stage.setTitle("Results - Room " + roomId);
+            stage.setScene(scene);
+            stage.initOwner(((Stage) ((javafx.scene.Node) event.getSource())
+                    .getScene().getWindow()));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
