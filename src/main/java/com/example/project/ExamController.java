@@ -21,17 +21,17 @@ public class ExamController {
     private ImageView questionImageView;
 
     @FXML
-    private VBox optionsContainer;
+    private VBox imageContainer;
 
     @FXML
-    private ToggleGroup optionsGroup;
+    private VBox optionsContainer;
 
     @FXML
     private Button nextButton;
 
+    private final ToggleGroup optionsGroup = new ToggleGroup();
     private final QuestionDatabase db = new QuestionDatabase();
     private List<QuestionModel> questions;
-
     private int index = 0;
     private int score = 0;
     private String roomId;
@@ -50,9 +50,7 @@ public class ExamController {
         }
 
         Collections.shuffle(questions);
-
         loadQuestion();
-
         nextButton.setOnAction(e -> checkAnswerAndNext());
     }
 
@@ -60,7 +58,6 @@ public class ExamController {
         if (index >= questions.size()) {
             ResultDatabase rdb = new ResultDatabase();
             rdb.insertResult(roomId, studentName, score, questions.size());
-
             new Alert(Alert.AlertType.INFORMATION,
                     "Exam finished! Score: " + score + "/" + questions.size())
                     .showAndWait();
@@ -78,16 +75,19 @@ public class ExamController {
                 try {
                     String uri = f.toURI().toURL().toString();
                     questionImageView.setImage(new Image(uri, true));
-                    questionImageView.setVisible(true);
+                    imageContainer.setManaged(true);
+                    imageContainer.setVisible(true);
                 } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                    questionImageView.setVisible(false);
+                    imageContainer.setManaged(false);
+                    imageContainer.setVisible(false);
                 }
             } else {
-                questionImageView.setVisible(false);
+                imageContainer.setManaged(false);
+                imageContainer.setVisible(false);
             }
         } else {
-            questionImageView.setVisible(false);
+            imageContainer.setManaged(false);
+            imageContainer.setVisible(false);
         }
 
         optionsContainer.getChildren().clear();
@@ -116,7 +116,7 @@ public class ExamController {
     }
 
     private void closeWindow() {
-        Stage stage = (Stage) questionLabel.getScene().getWindow();
+        Stage stage = (Stage) nextButton.getScene().getWindow();
         stage.close();
     }
 }
