@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.project.QuestionListController">
+<BorderPane prefHeight="400" prefWidth="600" style="-fx-background-color: linear-gradient(to bottom right, #ffffff, #d9b38c);" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.project.QuestionListController">
     <top>
         <HBox spacing="10">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <Label fx:id="roomLabel"
-                   text="Room: "
-                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label fx:id="roomLabel" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Room: " />
         </HBox>
     </top>
 
     <center>
-        <TableView fx:id="questionTable">
+        <TableView fx:id="questionTable" style="-fx-background-color: linear-gradient(to bottom right, #ffffff, #d9b38c);">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="60"/>
-                <TableColumn fx:id="questionColumn" text="Question" prefWidth="300"/>
-                <TableColumn fx:id="hasImageColumn" text="Image" prefWidth="80"/>
+                <TableColumn fx:id="idColumn" prefWidth="60" text="ID" />
+                <TableColumn fx:id="questionColumn" prefWidth="300" text="Question" />
+                <TableColumn fx:id="hasImageColumn" prefWidth="80" text="Image" />
             </columns>
         </TableView>
     </center>
