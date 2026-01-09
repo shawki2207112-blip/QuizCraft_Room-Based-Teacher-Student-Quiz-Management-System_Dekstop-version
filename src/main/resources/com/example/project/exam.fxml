@@ -4,34 +4,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.ToggleGroup?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.project.ExamController"
-      spacing="10">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
+<ScrollPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.project.ExamController"
+            fitToWidth="true"
+            prefWidth="600"
+            prefHeight="400">
+    <content>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-    <Label fx:id="questionLabel"
-           wrapText="true"
-           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label fx:id="questionLabel"
+                   wrapText="true"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
-    <ImageView fx:id="questionImageView"
-               fitWidth="250"
-               preserveRatio="true"
-               smooth="true"
-               visible="false"/>
+            <VBox fx:id="imageContainer" fillWidth="false">
+                <ImageView fx:id="questionImageView"
+                           fitWidth="250"
+                           preserveRatio="true"
+                           smooth="true"/>
+            </VBox>
 
-    <fx:define>
-        <ToggleGroup fx:id="optionsGroup"/>
-    </fx:define>
+            <VBox fx:id="optionsContainer" spacing="5"/>
 
-    <VBox fx:id="optionsContainer" spacing="5"/>
-
-    <Button fx:id="nextButton"
-            text="Next"
-            maxWidth="Infinity"/>
-
-</VBox>
+            <Button fx:id="nextButton"
+                    text="Next"
+                    prefWidth="200"
+                    minWidth="120"/>
+        </VBox>
+    </content>
+</ScrollPane>
